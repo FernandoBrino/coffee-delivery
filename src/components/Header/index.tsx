@@ -10,12 +10,12 @@ export const Header = () => {
 
             <Actions>
                 <Location>
-                    <MapPin size={16} weight="fill" />
+                    <MapPin weight="fill" />
                     <p>Porto Alegre, RS</p>
                 </Location>
 
                 <Cart>
-                    <ShoppingCart size={16} weight="fill" />
+                    <ShoppingCart weight="fill" />
                 </Cart>
             </Actions>
         </HeaderContainer>

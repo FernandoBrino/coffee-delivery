@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -22,23 +22,32 @@ export const Location = styled.span`
 
     color: ${props => props.theme["purple-dark"]};
     background-color: ${props => props.theme["purple-light"]};
+    font-size: 1.4rem;
 
     > svg {
         color: ${props => props.theme.purple};
+        width: 1.9rem;
+        height: 1.5rem;
     }
 `
 
 
-export const Cart = styled.span`
+export const Cart = styled.button`
     display: flex;
     align-items: center;
-    gap: 0.7rem;
     padding: 0.8rem;
     border-radius: 8px;
+    border: none;
 
     background-color: ${props => props.theme["yellow-light"]};
 
+    &:hover {
+        cursor: pointer;
+    }
+
     > svg {
         color: ${props => props.theme["yellow-dark"]};
+        width: 1.8rem;
+        height: 1.7rem;
     }
 `
