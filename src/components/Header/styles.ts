@@ -26,8 +26,6 @@ export const Location = styled.span`
 
     > svg {
         color: ${props => props.theme.purple};
-        width: 1.9rem;
-        height: 1.5rem;
     }
 `
 
@@ -47,7 +45,5 @@ export const Cart = styled.button`
 
     > svg {
         color: ${props => props.theme["yellow-dark"]};
-        width: 1.8rem;
-        height: 1.7rem;
     }
 `

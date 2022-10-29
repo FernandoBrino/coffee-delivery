@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Actions, Cart, CoffeeContainer, CoffeeType, Description, FillCart, Footer, Price, Types } from "./styles";
 
+import { ShoppingCartSimple, Minus, Plus } from 'phosphor-react'
 
 interface CoffeeProps {
     id: Number,
@@ -41,8 +42,14 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
                     <b>{coffee.price}</b>
                 </Price>
                 <Actions>
-                    <FillCart></FillCart>
-                    <Cart></Cart>
+                    <FillCart>
+                        <Minus size={15} weight="bold"/>
+                        <p></p>
+                        <Plus size={15} weight="bold"/>
+                    </FillCart>
+                    <Cart>
+                        <ShoppingCartSimple  weight="fill" size={20}/>
+                    </Cart>
                 </Actions>
             </Footer>
         </CoffeeContainer>

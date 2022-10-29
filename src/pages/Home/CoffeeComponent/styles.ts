@@ -54,13 +54,39 @@ export const Description = styled.div`
 
 export const Footer = styled.div`
     display: flex;
+    align-items: center;
+    gap: 2.3rem;
 `
 
-export const Actions = styled.div``
+export const Actions = styled.div`
+    display: flex;
+    gap: 0.8rem;
+`
 
-export const Cart = styled.button``
+export const Cart = styled.button`
+    display: flex;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 6px;
+    align-items: center;
+    cursor: pointer;
+    background-color: ${props => props.theme["purple-dark"]};
 
-export const FillCart = styled.div``
+    > svg {
+        color: ${props => props.theme.white};
+    }
+`
+
+export const FillCart = styled.div`
+    display: flex;
+    padding: 0.8rem;
+    border-radius: 6px;
+    background-color: ${props => props.theme["base-button"]};
+
+    svg {
+        color: ${props => props.theme.purple};
+    }
+`
 
 export const Price = styled.div`
     display: flex;
