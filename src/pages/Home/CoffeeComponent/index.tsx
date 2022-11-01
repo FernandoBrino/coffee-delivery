@@ -5,7 +5,7 @@ import { ShoppingCartSimple, Minus, Plus } from 'phosphor-react'
 import { ItemsContext } from "../../../contexts/ItemsContext";
 
 interface CoffeeProps {
-    id: Number,
+    id: number,
     title: string,
     description: string,
     types: string[],
@@ -30,7 +30,6 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
             setCoffeeQuantity(state => state - 1);
         }
     }
-
     
     const handleAddCoffeeInCart = () => {
         const coffeeToBeAdded = {
@@ -51,7 +50,7 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
             <CoffeeContent> 
                 <Types>
                     {coffee.types.map(type => (
-                        <CoffeeType>
+                        <CoffeeType key={Math.random()}>
                             <p>{type}</p>
                         </CoffeeType>
                     ))}

@@ -1,12 +1,19 @@
-import { Actions, Cart, HeaderContainer, Location } from "./styles"
+import { Actions, Cart, CartItems, HeaderContainer, Location } from "./styles"
 import logoCoffeeDelivery from "../../assets/logo-coffee-delivery.svg"
 
 import { MapPin, ShoppingCart } from 'phosphor-react'
+import { NavLink } from "react-router-dom"
+import { useContext } from "react"
+import { ItemsContext } from "../../contexts/ItemsContext"
 
 export const Header = () => {
+    const { coffeesInCart } = useContext(ItemsContext);
+
     return (
         <HeaderContainer>
-            <img src={logoCoffeeDelivery} />
+            <NavLink to="/" title="Home">
+                <img src={logoCoffeeDelivery} />
+            </NavLink>
 
             <Actions>
                 <Location>
@@ -14,9 +21,13 @@ export const Header = () => {
                     <p>Porto Alegre, RS</p>
                 </Location>
 
-                <Cart>
-                    <ShoppingCart weight="fill" size={20}/>
-                </Cart>
+                <NavLink to="/cart" title="Cart">
+                    <Cart>
+                        <ShoppingCart weight="fill" size={20} />
+                        <CartItems>{coffeesInCart.length}</CartItems>
+                    </Cart>
+                </NavLink>
+                
             </Actions>
         </HeaderContainer>
     )

@@ -36,6 +36,8 @@ export const Cart = styled.button`
     padding: 0.8rem;
     border-radius: 8px;
     border: none;
+    position: relative;
+
 
     background-color: ${props => props.theme["yellow-light"]};
 
@@ -46,4 +48,23 @@ export const Cart = styled.button`
     > svg {
         color: ${props => props.theme["yellow-dark"]};
     }
+`
+
+export const CartItems = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    
+    position: absolute;
+    top: -8px;
+    right: -8.35px;
+    width: 2rem;
+    height: 2rem;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    color: ${props => props.theme.white};
+    background-color: ${props => props.theme["yellow-dark"]};
 `
