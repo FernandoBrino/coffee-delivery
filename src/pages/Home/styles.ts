@@ -73,12 +73,12 @@ export const CoffeeList = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3.4rem;
+`
 
-    h2 {
-        font-family: 'Baloo 2', sans-serif;
-        font-weight: 800;
-        font-size: 3.2rem;
-    }
+export const Subtitle = styled.h2`
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 3.2rem;  
 `
 
 export const List = styled.div`

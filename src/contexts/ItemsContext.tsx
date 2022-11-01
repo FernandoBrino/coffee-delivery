@@ -11,7 +11,8 @@ interface CoffeeBuyed {
 interface ItemsContextType {
     coffeesInCart: CoffeeBuyed[];
     addCoffeeInCart: (newCoffee: CoffeeBuyed) => void;
-    removeCoffeeInCart: (id: number) => void;
+    removeCoffeeInCart: (coffeeId: number) => void;
+    updateCoffeQuantityInCart: (coffeeId: number, quantity: number) => void;
 }
 
 interface ItemsContextProviderProps {
@@ -29,7 +30,7 @@ export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
         if(coffeeAlreadyOnCart) {
             const updateCoffeeQuantity = coffeesInCart.map(coffee => {
                 if(coffee.id === newCoffee.id) {
-                   return { ...coffee, quantity: newCoffee.quantity };
+                    updateCoffeQuantityInCart(coffee.id, newCoffee.quantity)
                 }
                 
                 return coffee
@@ -41,14 +42,36 @@ export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
         }
     }
 
-    const removeCoffeeInCart = (id: number) => {
-        const coffeesInCartWithoutRemovedOne = coffeesInCart.filter(coffee => coffee.id !== id)
+    const removeCoffeeInCart = (coffeeId: number) => {
+        const coffeesInCartWithoutRemovedOne = coffeesInCart.filter(coffee => coffee.id !== coffeeId)
 
         setCoffeesInCart(coffeesInCartWithoutRemovedOne)
     }
 
+    const updateCoffeQuantityInCart = (coffeeId: number, quantity: number) => {
+        const coffeeAlreadyOnCart = coffeesInCart.find(coffee => coffee.id === coffeeId);
+
+        if(coffeeAlreadyOnCart) {
+            const updateCoffeeQuantity = coffeesInCart.map(coffee => {
+                if(coffee.id === coffeeId) {
+                   return { ...coffee, quantity: quantity };
+                }
+                
+                return coffee
+            })
+            
+            setCoffeesInCart(updateCoffeeQuantity);
+        }
+    }
+
     return (
-        <ItemsContext.Provider value={{ addCoffeeInCart, removeCoffeeInCart, coffeesInCart }}>
+        <ItemsContext.Provider 
+            value={{ 
+                addCoffeeInCart, 
+                removeCoffeeInCart, 
+                updateCoffeQuantityInCart,
+                coffeesInCart 
+            }}>
             {children}
         </ItemsContext.Provider>
     )

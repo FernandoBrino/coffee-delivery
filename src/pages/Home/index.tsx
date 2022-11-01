@@ -4,8 +4,10 @@ import {
     HomeContainer,
     IconResume,
     IntroductionText,
-    ResumeApp, ResumeTitle, 
-    List 
+    ResumeApp, 
+    ResumeTitle, 
+    List, 
+    Subtitle
 } from "./styles"
 
 import introductionLogo from '../../assets/introduction-logo.svg';
@@ -57,7 +59,7 @@ export const Home = () => {
             </CoffeeIntroduction>
 
             <CoffeeList>
-                <h2>Nossos Cafés</h2>
+                <Subtitle>Nossos Cafés</Subtitle>
                 
                 <List>
                     {coffeeList.map(coffee => (

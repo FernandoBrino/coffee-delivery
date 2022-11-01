@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Actions, Cart, CoffeeContainer, CoffeeContent, CoffeeType, Description, FillCart, Footer, Price, Types } from "./styles";
 
 import { ShoppingCartSimple, Minus, Plus } from 'phosphor-react'
@@ -41,6 +41,7 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
         }
 
         addCoffeeInCart(coffeeToBeAdded)
+        setCoffeeQuantity(1);
     }
 
     return (
@@ -75,7 +76,7 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
                             <p>{coffeeQuantity}</p>
 
                             <button onClick={handleAddCoffee}>
-                            <Plus size={15} weight="bold" />
+                                <Plus size={15} weight="bold" />
                             </button>
                         </FillCart>
                         <Cart onClick={handleAddCoffeeInCart}>
@@ -84,7 +85,6 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
                     </Actions>
                 </Footer>
             </CoffeeContent>
-            
         </CoffeeContainer>
     );
 }
