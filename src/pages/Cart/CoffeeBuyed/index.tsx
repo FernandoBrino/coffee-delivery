@@ -6,13 +6,14 @@ import {
     CoffeDetails, 
     CoffeeBuyedContainer, 
     CoffeeDescription, 
-    RemoveCoffee
+    RemoveCoffee,
+    Separator
 } from "./styles";
 import { ItemsContext } from "../../../contexts/ItemsContext";
 
 
 interface CoffeeBuyed {
-    id: number;
+    id: string;
     title: string;
     price: number;
     quantity: number;
@@ -25,18 +26,34 @@ interface IProps {
 }
 
 export const CoffeeBuyed: FC<IProps> = ({ coffee }) => {
-    const { removeCoffeeInCart, updateCoffeQuantityInCart } = useContext(ItemsContext);
+    const { removeCoffeeInCart, addCoffeeInCart } = useContext(ItemsContext);
     const [coffeeQuantity, setCoffeeQuantity] = useState<number>(coffee.quantity);
 
     const handleAddCoffeeInCart = () => {
+        const coffeeToBeAdded = {
+            id: coffee.id,
+            title: coffee.title,
+            price: coffee.price,
+            quantity: coffeeQuantity,
+            img: coffee.img,
+        }
+        
         setCoffeeQuantity(state => state + 1);
-        updateCoffeQuantityInCart(coffee.id, coffeeQuantity);
+        addCoffeeInCart(coffeeToBeAdded)
     }
 
     const handleReduceCoffeeInCart = () => {
+        const coffeeToBeAdded = {
+            id: coffee.id,
+            title: coffee.title,
+            price: coffee.price,
+            quantity: coffeeQuantity,
+            img: coffee.img,
+        }
+
         if(coffeeQuantity > 1) {
             setCoffeeQuantity(state => state - 1);
-            updateCoffeQuantityInCart(coffee.id, coffeeQuantity);
+            addCoffeeInCart(coffeeToBeAdded)
         }
     }
 
@@ -45,34 +62,38 @@ export const CoffeeBuyed: FC<IProps> = ({ coffee }) => {
     }
 
     return (
-        <CoffeeBuyedContainer>
-            <img src={coffee.img}/>
+        <>
+            <CoffeeBuyedContainer>
+                <img src={coffee.img}/>
 
-            <CoffeDetails>
-                <CoffeeDescription>
-                    <h3>{coffee.title}</h3>
-                    <p>R$ {coffee.price}</p>
-                </CoffeeDescription>
-            
-                <Actions>
-                    <ChangeQuantity>
-                        <button onClick={handleReduceCoffeeInCart}>
-                            <Minus size={15} weight="bold"/>
-                        </button>
-                        
-                        <p>{coffeeQuantity}</p>
+                <CoffeDetails>
+                    <CoffeeDescription>
+                        <h3>{coffee.title}</h3>
+                        <p>R$ {coffee.price}</p>
+                    </CoffeeDescription>
+                
+                    <Actions>
+                        <ChangeQuantity>
+                            <button onClick={handleReduceCoffeeInCart}>
+                                <Minus size={15} weight="bold"/>
+                            </button>
+                            
+                            <p>{coffeeQuantity}</p>
 
-                        <button onClick={handleAddCoffeeInCart}>
-                            <Plus size={15} weight="bold" />
-                        </button>
-                    </ChangeQuantity>
-                    <RemoveCoffee onClick={handleRemoveCoffeeInCart}>
-                        <Trash size={15} weight="bold"/>
-                        <p>REMOVER</p>
-                    </RemoveCoffee>
-                </Actions>
-            </CoffeDetails>
-        </CoffeeBuyedContainer>
+                            <button onClick={handleAddCoffeeInCart}>
+                                <Plus size={15} weight="bold" />
+                            </button>
+                        </ChangeQuantity>
+                        <RemoveCoffee onClick={handleRemoveCoffeeInCart}>
+                            <Trash size={15} weight="bold"/>
+                            <p>REMOVER</p>
+                        </RemoveCoffee>
+                    </Actions>
+                </CoffeDetails>
+            </CoffeeBuyedContainer>
+            <Separator></Separator>
+        </>
+        
 
     )
 }

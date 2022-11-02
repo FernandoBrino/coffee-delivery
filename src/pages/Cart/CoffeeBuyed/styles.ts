@@ -59,6 +59,11 @@ export const ChangeQuantity = styled.div`
     svg {
         cursor: pointer;
         color: ${props => props.theme.purple};
+        transition: color 0.25s;
+    }
+
+    svg:hover {
+        color: ${props => props.theme["purple-dark"]};
     }
 `
 
@@ -69,8 +74,14 @@ export const RemoveCoffee = styled.div`
     padding: 0.8rem;
     border-radius: 6px;
     gap: 0.6rem;
-    background-color: ${props => props.theme["base-button"]};
     cursor: pointer;
+
+    background-color: ${props => props.theme["base-button"]};
+    transition: background-color 0.25s;
+
+    &:hover {
+        background-color: ${props => props.theme["base-hover"]};
+    }
 
     p {
         font-size: 1.2rem;
@@ -80,4 +91,8 @@ export const RemoveCoffee = styled.div`
     > svg {
         color: ${props => props.theme.purple};
     }
+`
+
+export const Separator = styled.span`
+   border: 1px solid ${props => props.theme["base-button"]};
 `

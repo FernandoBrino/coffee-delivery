@@ -1,11 +1,11 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext, useState } from "react";
 import { Actions, Cart, CoffeeContainer, CoffeeContent, CoffeeType, Description, FillCart, Footer, Price, Types } from "./styles";
 
 import { ShoppingCartSimple, Minus, Plus } from 'phosphor-react'
 import { ItemsContext } from "../../../contexts/ItemsContext";
 
 interface CoffeeProps {
-    id: number,
+    id: string,
     title: string,
     description: string,
     types: string[],
@@ -51,7 +51,7 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
             <CoffeeContent> 
                 <Types>
                     {coffee.types.map(type => (
-                        <CoffeeType key={Math.random()}>
+                        <CoffeeType key={coffee.id}>
                             <p>{type}</p>
                         </CoffeeType>
                     ))}

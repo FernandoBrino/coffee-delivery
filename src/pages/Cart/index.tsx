@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ItemsContext } from "../../contexts/ItemsContext"
 import { CoffeeBuyed } from "./CoffeeBuyed";
 import { 
@@ -8,7 +8,6 @@ import {
     ConfirmButton, 
     PaymentMethod, 
     SelectedCoffees, 
-    Separator, 
     Shipping, 
     Subtitle, 
     Total, 
@@ -20,9 +19,9 @@ import {
 
 
 export const Cart = () => {
-    const { coffeesInCart } = useContext(ItemsContext);
-
-    const totalItems = coffeesInCart.reduce((acc, coffee) => acc += coffee.price * coffee.quantity, 0);
+    const { coffeesInCart} = useContext(ItemsContext);
+    
+    const totalItems = coffeesInCart.reduce((acc, current) => acc + (current.price * current.quantity), 0)
 
     const shipping = 3;
     
@@ -40,10 +39,7 @@ export const Cart = () => {
                 <TotalCoffees>
                     <TotalCoffeesList>
                         {coffeesInCart.map(coffee => (
-                            <>
-                                <CoffeeBuyed coffee={coffee}/>
-                                <Separator></Separator>
-                            </>
+                            <CoffeeBuyed coffee={coffee} key={coffee.id}/>
                         ))}
 
                         <TotalBill>

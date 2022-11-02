@@ -43,10 +43,6 @@ export const Subtitle = styled.h2`
     color: ${props => props.theme["base-subtitle"]};
 `
 
-export const Separator = styled.span`
-   border: 1px solid ${props => props.theme["base-button"]};
-`
-
 export const TotalBill = styled.div`
     display: flex;
     flex-direction: column;

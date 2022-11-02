@@ -24,10 +24,9 @@ export const Header = () => {
                 <NavLink to="/cart" title="Cart">
                     <Cart>
                         <ShoppingCart weight="fill" size={20} />
-                        <CartItems>{coffeesInCart.length}</CartItems>
+                        {coffeesInCart.length > 0 && <CartItems>{coffeesInCart.length}</CartItems>}
                     </Cart>
                 </NavLink>
-                
             </Actions>
         </HeaderContainer>
     )

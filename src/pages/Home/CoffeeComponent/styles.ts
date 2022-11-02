@@ -78,9 +78,14 @@ export const Cart = styled.button`
     align-items: center;
     cursor: pointer;
     background-color: ${props => props.theme["purple-dark"]};
+    transition: background-color 0.25s;
 
     > svg {
         color: ${props => props.theme.white};
+    }
+
+    &:hover {
+        background-color: ${props => props.theme.purple};
     }
 `
 
@@ -102,6 +107,11 @@ export const FillCart = styled.div`
     svg {
         cursor: pointer;
         color: ${props => props.theme.purple};
+        transition: color 0.25s;
+    }
+
+    svg:hover {
+        color: ${props => props.theme["purple-dark"]};
     }
 `
 
