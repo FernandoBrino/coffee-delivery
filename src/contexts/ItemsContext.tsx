@@ -22,6 +22,7 @@ export const ItemsContext = createContext({} as ItemsContextType)
 
 export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
     const [coffeesInCart, setCoffeesInCart] = useState<CoffeeBuyed[]>([]);
+    console.log(coffeesInCart);
 
     const addCoffeeInCart = (newCoffee: CoffeeBuyed) => {
         const coffeeAlreadyOnCart = coffeesInCart.find(coffee => coffee.id === newCoffee.id);

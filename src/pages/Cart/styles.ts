@@ -6,33 +6,45 @@ export const CartContainer = styled.div`
 `
 
 export const CompleteRequest = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    justify-content: flex-start;
 `
 
-export const Address = styled.div`
+export const RequestDetails = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 `
 
-export const PaymentMethod = styled.div`
+export const BaseCard = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    border-radius: 0.6rem 4.4rem;
+    padding: 4rem;
+
+    background-color: ${props => props.theme["base-card"]};
+`
+
+export const Address = styled(BaseCard)`
+    min-width: 64rem;
+`
+
+export const PaymentMethod = styled(BaseCard)`
+    min-width: 64rem;
 `
 
 export const SelectedCoffees = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    justify-content: flex-start;
 `
 
-export const TotalCoffees = styled.div`
+export const TotalCoffees = styled(BaseCard)`
     min-width: 44.8rem;
-    min-height: 49.8rem;
-`
-
-export const TotalCoffeesList = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    border-radius: 0.6rem 4.4rem;
-    padding: 4rem;
-
-    background-color: ${props => props.theme["base-card"]};
 `
 
 export const Subtitle = styled.h2`
@@ -90,10 +102,16 @@ export const ConfirmButton = styled.button`
 
     font-size: 1.4rem;
     font-weight: 700;
+    text-transform: uppercase;
 
     border: none;
 
     background-color: ${props => props.theme.yellow};
     color: ${props => props.theme.white};
+    transition: background-color 0.25s;
+
+    &:hover {
+        background-color: ${props => props.theme["yellow-dark"]};
+    }
 `
 

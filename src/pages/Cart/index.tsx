@@ -7,21 +7,21 @@ import {
     CompleteRequest, 
     ConfirmButton, 
     PaymentMethod, 
+    RequestDetails, 
     SelectedCoffees, 
     Shipping, 
     Subtitle, 
     Total, 
     TotalBill, 
-    TotalCoffees, 
-    TotalCoffeesList,
+    TotalCoffees,
     TotalItems
 } from "./styles"
 
 
 export const Cart = () => {
     const { coffeesInCart} = useContext(ItemsContext);
-    
-    const totalItems = coffeesInCart.reduce((acc, current) => acc + (current.price * current.quantity), 0)
+
+    const totalItems = coffeesInCart.reduce((acc, current) => acc += (current.price * current.quantity), 0)
 
     const shipping = 3;
     
@@ -31,13 +31,16 @@ export const Cart = () => {
         <CartContainer>
             <CompleteRequest>
                 <Subtitle>Complete seu pedido</Subtitle>
-                <Address></Address>
-                <PaymentMethod></PaymentMethod>
+                <RequestDetails>
+                    <Address>
+                    
+                    </Address>
+                    <PaymentMethod></PaymentMethod>
+                </RequestDetails>
             </CompleteRequest>
             <SelectedCoffees>
                 <Subtitle>Cafés selecionados</Subtitle>
                 <TotalCoffees>
-                    <TotalCoffeesList>
                         {coffeesInCart.map(coffee => (
                             <CoffeeBuyed coffee={coffee} key={coffee.id}/>
                         ))}
@@ -60,9 +63,8 @@ export const Cart = () => {
                         </TotalBill>
 
                         <ConfirmButton>
-                            CONFIRMAR PEDIDO
+                            Confirmar pedido
                         </ConfirmButton>
-                    </TotalCoffeesList>
                 </TotalCoffees>
             </SelectedCoffees>
         </CartContainer>

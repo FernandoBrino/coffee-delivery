@@ -20,7 +20,6 @@ interface CoffeeBuyed {
     img: string;
 }
 
-
 interface IProps {
     coffee: CoffeeBuyed;
 }
@@ -30,29 +29,29 @@ export const CoffeeBuyed: FC<IProps> = ({ coffee }) => {
     const [coffeeQuantity, setCoffeeQuantity] = useState<number>(coffee.quantity);
 
     const handleAddCoffeeInCart = () => {
+        setCoffeeQuantity(state => state + 1);
         const coffeeToBeAdded = {
             id: coffee.id,
             title: coffee.title,
             price: coffee.price,
-            quantity: coffeeQuantity,
+            quantity: coffeeQuantity === coffee.quantity ? coffeeQuantity + 1 : coffeeQuantity,
             img: coffee.img,
         }
-        
-        setCoffeeQuantity(state => state + 1);
+       
         addCoffeeInCart(coffeeToBeAdded)
     }
 
     const handleReduceCoffeeInCart = () => {
-        const coffeeToBeAdded = {
-            id: coffee.id,
-            title: coffee.title,
-            price: coffee.price,
-            quantity: coffeeQuantity,
-            img: coffee.img,
-        }
-
         if(coffeeQuantity > 1) {
             setCoffeeQuantity(state => state - 1);
+            const coffeeToBeAdded = {
+                id: coffee.id,
+                title: coffee.title,
+                price: coffee.price,
+                quantity:  coffeeQuantity === coffee.quantity ? coffeeQuantity - 1 : coffeeQuantity,
+                img: coffee.img,
+            }
+            
             addCoffeeInCart(coffeeToBeAdded)
         }
     }
