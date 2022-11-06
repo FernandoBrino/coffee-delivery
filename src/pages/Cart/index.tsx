@@ -1,6 +1,6 @@
 import { useContext } from "react"
 
-import { MapPinLine } from 'phosphor-react'
+import { MapPinLine, CurrencyDollar, CreditCard, Bank, Money } from 'phosphor-react'
 
 import { ItemsContext } from "../../contexts/ItemsContext"
 import { CoffeeBuyed } from "./CoffeeBuyed";
@@ -10,7 +10,9 @@ import {
     CartContainer, 
     CompleteRequest, 
     ConfirmButton, 
-    HeaderAddress, 
+    Header,
+    PaymentCard,
+    PaymentMethod,
     RequestDetails, 
     SelectedCoffees,
     Subtitle, 
@@ -36,17 +38,38 @@ export const Cart = () => {
                 <Subtitle>Complete seu pedido</Subtitle>
                 <RequestDetails>
                     <BaseCard>
-                        <HeaderAddress>
-                            <MapPinLine />
+                        <Header svgColor="yellow-dark">
+                            <MapPinLine size={20}/>
                             <span>
                                 <p>Endereço de Entrega </p>
                                 <p>Informe o endereço onde deseja receber seu pedido</p>
                             </span>
-                        </HeaderAddress>
+                        </Header>
 
                         <UserAddressForm />
                     </BaseCard>
                     <BaseCard>
+                        <Header svgColor="purple">
+                            <CurrencyDollar size={20}/>
+                            <span>
+                                <p>Pagamento</p>
+                                <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
+                            </span>
+                        </Header>
+                        <PaymentMethod>
+                            <PaymentCard>
+                                <CreditCard size={20} />
+                                <p>Cartão de crédito</p>
+                            </PaymentCard>
+                            <PaymentCard>
+                                <Bank size={20} />
+                                <p>Cartão de crédito</p>
+                            </PaymentCard>
+                            <PaymentCard>
+                                <Money size={20} />
+                                <p>Cartão de crédito</p>
+                            </PaymentCard>
+                        </PaymentMethod>
                     </BaseCard>
                 </RequestDetails>
             </CompleteRequest>
@@ -74,7 +97,7 @@ export const Cart = () => {
                             </Total>
                         </TotalBill>
 
-                        <ConfirmButton>
+                        <ConfirmButton type="submit" form="UserAddressForm">
                             Confirmar pedido
                         </ConfirmButton>
                 </TotalCoffees>

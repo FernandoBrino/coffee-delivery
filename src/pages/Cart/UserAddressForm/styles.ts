@@ -13,6 +13,10 @@ export const BaseInput = styled.input`
     &:focus {
         outline: transparent;
     }
+
+    &::placeholder {
+            color: ${props => props.theme["base-text"]};
+        }
 `
 
 export const UserAddressFormContainer = styled.form`
@@ -44,19 +48,21 @@ export const ComplementInput = styled.span`
     padding: 1.2rem;
     border: 1px solid ${props => props.theme["base-button"]};
     border-radius: 4px;
-
-    color: ${props => props.theme["base-text"]};
     background-color: ${props => props.theme["base-input"]};
 
     input {
         border: none;
         background-color: ${props => props.theme["base-input"]};
-        color: ${props => props.theme["base-text"]};
+        color: ${props => props.theme["base-label"]};
         width: 100%;
         font-size: 1.4rem;
 
         &:focus {
             outline: transparent;
+        }
+
+        &::placeholder {
+            color: ${props => props.theme["base-label"]};
         }
     }
 

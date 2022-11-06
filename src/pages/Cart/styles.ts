@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+
+interface IProps {
+    svgColor: 'yellow-dark' | 'purple';
+}
+
 export const CartContainer = styled.div`
     display: flex;
     gap: 3.2rem;
@@ -29,7 +34,7 @@ export const BaseCard = styled.div`
     background-color: ${props => props.theme["base-card"]};
 `
 
-export const HeaderAddress = styled.div`
+export const Header = styled.div<IProps>`
     display: flex;
     gap: 1.1rem;
 
@@ -52,7 +57,37 @@ export const HeaderAddress = styled.div`
     }
 
     > svg {
-        color: ${props => props.theme["yellow-dark"]};
+        color: ${props => props.theme[props.svgColor]};
+    }
+`
+
+export const PaymentMethod = styled.div`
+    display: flex;
+    gap: 1.2rem;
+`
+
+export const PaymentCard = styled.div`
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 1.6rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    text-transform: uppercase;
+    font-size: 1.2rem;
+
+    color: ${props => props.theme["base-text"]};
+    background-color: ${props => props.theme["base-button"]};
+
+    > svg {
+        color: ${props => props.theme.purple};
+    }
+
+    &:hover {
+        background-color: ${props => props.theme["purple-light"]};
+        border: 1px solid ${props => props.theme.purple};
     }
 `
 
