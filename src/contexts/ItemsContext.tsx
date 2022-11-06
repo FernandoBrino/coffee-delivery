@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState, useCallback } from "react";
 
 interface CoffeeBuyed {
     id: string;
@@ -22,9 +22,8 @@ export const ItemsContext = createContext({} as ItemsContextType)
 
 export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
     const [coffeesInCart, setCoffeesInCart] = useState<CoffeeBuyed[]>([]);
-    console.log(coffeesInCart);
 
-    const addCoffeeInCart = (newCoffee: CoffeeBuyed) => {
+    const addCoffeeInCart = useCallback((newCoffee: CoffeeBuyed) => {
         const coffeeAlreadyOnCart = coffeesInCart.find(coffee => coffee.id === newCoffee.id);
 
         if(coffeeAlreadyOnCart) {
@@ -40,7 +39,7 @@ export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
         } else {
             setCoffeesInCart(state => [...state, newCoffee]);
         }
-    }
+    }, [coffeesInCart]);
 
     const removeCoffeeInCart = (coffeeId: string) => {
         const coffeesInCartWithoutRemovedOne = coffeesInCart.filter(coffee => coffee.id !== coffeeId)

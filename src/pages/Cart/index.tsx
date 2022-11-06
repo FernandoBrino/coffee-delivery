@@ -1,22 +1,25 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext } from "react"
+
+import { MapPinLine } from 'phosphor-react'
+
 import { ItemsContext } from "../../contexts/ItemsContext"
 import { CoffeeBuyed } from "./CoffeeBuyed";
-import { 
-    Address, 
+
+import {  
+    BaseCard,
     CartContainer, 
     CompleteRequest, 
     ConfirmButton, 
-    PaymentMethod, 
+    HeaderAddress, 
     RequestDetails, 
-    SelectedCoffees, 
-    Shipping, 
+    SelectedCoffees,
     Subtitle, 
     Total, 
     TotalBill, 
     TotalCoffees,
-    TotalItems
+    TotalItems,
 } from "./styles"
-
+import { UserAddressForm } from "./UserAddressForm";
 
 export const Cart = () => {
     const { coffeesInCart} = useContext(ItemsContext);
@@ -32,10 +35,19 @@ export const Cart = () => {
             <CompleteRequest>
                 <Subtitle>Complete seu pedido</Subtitle>
                 <RequestDetails>
-                    <Address>
-                    
-                    </Address>
-                    <PaymentMethod></PaymentMethod>
+                    <BaseCard>
+                        <HeaderAddress>
+                            <MapPinLine />
+                            <span>
+                                <p>Endereço de Entrega </p>
+                                <p>Informe o endereço onde deseja receber seu pedido</p>
+                            </span>
+                        </HeaderAddress>
+
+                        <UserAddressForm />
+                    </BaseCard>
+                    <BaseCard>
+                    </BaseCard>
                 </RequestDetails>
             </CompleteRequest>
             <SelectedCoffees>
@@ -51,10 +63,10 @@ export const Cart = () => {
                                 <p>R$ {totalItems}</p>
                             </TotalItems>
 
-                            <Shipping>
+                            <TotalItems>
                                 <p>Entrega</p>
                                 <p>R$ {shipping}</p>
-                            </Shipping>
+                            </TotalItems>
 
                             <Total>
                                 <p>Total</p>

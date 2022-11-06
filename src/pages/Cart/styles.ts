@@ -24,16 +24,36 @@ export const BaseCard = styled.div`
     gap: 3.2rem;
     border-radius: 0.6rem 4.4rem;
     padding: 4rem;
+    min-width: 64rem;
 
     background-color: ${props => props.theme["base-card"]};
 `
 
-export const Address = styled(BaseCard)`
-    min-width: 64rem;
-`
+export const HeaderAddress = styled.div`
+    display: flex;
+    gap: 1.1rem;
 
-export const PaymentMethod = styled(BaseCard)`
-    min-width: 64rem;
+    span {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        > * {
+            &:first-child {
+                color: ${props => props.theme["base-subtitle"]};
+            }
+
+            &:last-child {
+                color: ${props => props.theme["base-text"]};
+                font-size: 1.4rem;
+            }
+        }
+        
+    }
+
+    > svg {
+        color: ${props => props.theme["yellow-dark"]};
+    }
 `
 
 export const SelectedCoffees = styled.div`
@@ -62,16 +82,6 @@ export const TotalBill = styled.div`
 `
 
 export const TotalItems = styled.div`
-    display: flex;
-    justify-content: space-between;
-    color: ${props => props.theme["base-text"]};
-    
-    > p {
-        font-size: 1.4rem;
-    }
-`
-
-export const Shipping = styled.div`
     display: flex;
     justify-content: space-between;
     color: ${props => props.theme["base-text"]};
