@@ -22,15 +22,26 @@ import {
     TotalItems,
 } from "./styles"
 import { UserAddressForm } from "./UserAddressForm";
+import { UserInfoContext } from "../../contexts/UserInfoContext";
+import { NavLink } from "react-router-dom";
 
 export const Cart = () => {
-    const { coffeesInCart} = useContext(ItemsContext);
+    const { coffeesInCart } = useContext(ItemsContext);
+    const { saveUserPaymentMethod, userPaymentMethod, userAddress } = useContext(UserInfoContext);
 
     const totalItems = coffeesInCart.reduce((acc, current) => acc += (current.price * current.quantity), 0)
 
     const shipping = 3;
     
     const total = shipping + totalItems;
+
+    const userSelectedPaymentMethod = userPaymentMethod && coffeesInCart && userAddress ? "/success" : "/cart"
+
+    const checkPaymentMethod = () => {
+        if(!userPaymentMethod.length) {
+            alert('Selecione um método de pagamento!')
+        }
+    }
 
     return (
         <CartContainer>
@@ -57,17 +68,28 @@ export const Cart = () => {
                             </span>
                         </Header>
                         <PaymentMethod>
-                            <PaymentCard>
+                            <PaymentCard
+                                userPaymentMethod={userPaymentMethod === 'Cartão de crédito'}
+                                onClick={() => saveUserPaymentMethod('Cartão de crédito')}
+                            >
                                 <CreditCard size={20} />
                                 <p>Cartão de crédito</p>
                             </PaymentCard>
-                            <PaymentCard>
+
+                            <PaymentCard
+                                userPaymentMethod={userPaymentMethod === 'Cartão de débito'}
+                                onClick={() => saveUserPaymentMethod('Cartão de débito')}
+                            >
                                 <Bank size={20} />
-                                <p>Cartão de crédito</p>
+                                <p>Cartão de débito</p>
                             </PaymentCard>
-                            <PaymentCard>
+
+                            <PaymentCard 
+                                userPaymentMethod={userPaymentMethod === 'Dinheiro'}
+                                onClick={() => saveUserPaymentMethod('Dinheiro')}
+                            >
                                 <Money size={20} />
-                                <p>Cartão de crédito</p>
+                                <p>Dinheiro</p>
                             </PaymentCard>
                         </PaymentMethod>
                     </BaseCard>
@@ -96,10 +118,13 @@ export const Cart = () => {
                                 <p>R$ {total}</p>
                             </Total>
                         </TotalBill>
-
-                        <ConfirmButton type="submit" form="UserAddressForm">
-                            Confirmar pedido
-                        </ConfirmButton>
+                        
+                        
+                            <ConfirmButton type="submit" form="UserAddressForm" onClick={checkPaymentMethod}>
+                                <NavLink to={userSelectedPaymentMethod} title="success">
+                                    Confirmar pedido
+                                </NavLink>
+                            </ConfirmButton>
                 </TotalCoffees>
             </SelectedCoffees>
         </CartContainer>

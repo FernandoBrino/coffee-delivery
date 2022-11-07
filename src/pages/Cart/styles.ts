@@ -1,8 +1,12 @@
 import styled from "styled-components";
 
 
-interface IProps {
+interface HeaderProps {
     svgColor: 'yellow-dark' | 'purple';
+}
+
+interface PaymentCardProps { 
+    userPaymentMethod: boolean;
 }
 
 export const CartContainer = styled.div`
@@ -34,7 +38,7 @@ export const BaseCard = styled.div`
     background-color: ${props => props.theme["base-card"]};
 `
 
-export const Header = styled.div<IProps>`
+export const Header = styled.div<HeaderProps>`
     display: flex;
     gap: 1.1rem;
 
@@ -66,20 +70,21 @@ export const PaymentMethod = styled.div`
     gap: 1.2rem;
 `
 
-export const PaymentCard = styled.div`
+export const PaymentCard = styled.div<PaymentCardProps>`
     display: flex;
     gap: 1.2rem;
     align-items: center;
     padding: 1.6rem;
     border-radius: 6px;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 1px solid ${props => props.userPaymentMethod ? props.theme.purple : 'transparent'};
+    width: 100%;
 
     text-transform: uppercase;
     font-size: 1.2rem;
 
     color: ${props => props.theme["base-text"]};
-    background-color: ${props => props.theme["base-button"]};
+    background-color: ${props => props.userPaymentMethod ? props.theme["purple-light"] : props.theme["base-button"]};
 
     > svg {
         color: ${props => props.theme.purple};
@@ -154,6 +159,11 @@ export const ConfirmButton = styled.button`
     background-color: ${props => props.theme.yellow};
     color: ${props => props.theme.white};
     transition: background-color 0.25s;
+
+    a {
+        color: unset;
+        text-decoration: none;
+    }
 
     &:hover {
         background-color: ${props => props.theme["yellow-dark"]};

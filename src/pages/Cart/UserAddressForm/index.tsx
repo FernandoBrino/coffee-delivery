@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext } from "react";
-import { AddressContext } from "../../../contexts/AddressContext";
+import { UserInfoContext } from "../../../contexts/UserInfoContext";
 
 const newAddressFormValidationSchema = zod.object({
     cep: zod.string(),
@@ -19,28 +19,30 @@ type newAddressFormData = zod.infer<typeof newAddressFormValidationSchema>
 
 
 export const UserAddressForm = () => {
-    const { addUserAddress } = useContext(AddressContext);
+    const { saveUserAddress, userPaymentMethod } = useContext(UserInfoContext);
 
     const { register, handleSubmit } = useForm<newAddressFormData>({
         resolver: zodResolver(newAddressFormValidationSchema),
     });
 
     const sendUserAddressData = (data: newAddressFormData) => {
-        addUserAddress(data);
+        if(userPaymentMethod) {
+            saveUserAddress(data);
+        }
     }
 
     return(
         <UserAddressFormContainer onSubmit={handleSubmit(sendUserAddressData)} id="UserAddressForm">
             <Cep>
-                <BaseInput type="text" placeholder="Cep" {...register('cep')}/>
+                <BaseInput type="text" placeholder="Cep" {...register('cep')} required/>
             </Cep>
 
             <Street>
-                <BaseInput type="text" placeholder="Rua" {...register('street')} />
+                <BaseInput type="text" placeholder="Rua" {...register('street')} required/>
             </Street>
 
             <Complement>
-                <BaseInput type="text" placeholder="Número" {...register('number')}/>
+                <BaseInput type="text" placeholder="Número" {...register('number')} required/>
                 <ComplementInput>
                     <input type="text" placeholder="Complemento" {...register('complement')}/>
                     <p>Opcional</p>
@@ -48,9 +50,9 @@ export const UserAddressForm = () => {
             </Complement>
 
             <CityState>
-                <BaseInput type="text" placeholder="Bairro" {...register('district')}/>
-                <BaseInput type="text" placeholder="Cidade" {...register('city')}/>
-                <BaseInput type="text" placeholder="UF" {...register('state')}/>
+                <BaseInput type="text" placeholder="Bairro" {...register('district')} required/>
+                <BaseInput type="text" placeholder="Cidade" {...register('city')} required/>
+                <BaseInput type="text" placeholder="UF" {...register('state')} required/>
             </CityState>
         </UserAddressFormContainer>
     );

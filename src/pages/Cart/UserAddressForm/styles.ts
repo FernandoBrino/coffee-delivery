@@ -28,6 +28,10 @@ export const UserAddressFormContainer = styled.form`
 export const Cep = styled.div`
     display: grid;
     grid-template-columns: 33%;
+
+    p {
+        color: red;
+    }
 `
 
 export const Street = styled.div`
