@@ -7,8 +7,11 @@ interface IProps {
 
 export const SuccessfullyRequestContainer = styled.div`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+
+    > img {
+        padding-top: 11rem;
+    }
 `
 
 export const DetailsPurchase = styled.div`
