@@ -105,6 +105,11 @@ export const SelectedCoffees = styled.div`
 
 export const TotalCoffees = styled(BaseCard)`
     min-width: 44.8rem;
+
+    a {
+        color: unset;
+        text-decoration: none;
+    }
 `
 
 export const Subtitle = styled.h2`
@@ -149,6 +154,7 @@ export const ConfirmButton = styled.button`
     padding: 1.2rem 0.8rem;
     border-radius: 6px;
     cursor: pointer;
+    width: 100%;
 
     font-size: 1.4rem;
     font-weight: 700;
@@ -160,10 +166,6 @@ export const ConfirmButton = styled.button`
     color: ${props => props.theme.white};
     transition: background-color 0.25s;
 
-    a {
-        color: unset;
-        text-decoration: none;
-    }
 
     &:hover {
         background-color: ${props => props.theme["yellow-dark"]};

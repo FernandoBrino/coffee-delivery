@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface UserAddress {
     cep: string;
@@ -11,6 +11,9 @@ interface UserAddress {
 }
 
 type UserPaymentMethodProps = 'Cartão de crédito' | 'Cartão de débito' | 'Dinheiro';
+
+type UserInfoStored = {userAddress: UserAddress} & {paymentMethod: UserPaymentMethodProps};
+
 
 interface UserInfoContextData {
     userPaymentMethod: UserPaymentMethodProps,
@@ -29,12 +32,23 @@ export const UserInfoContextProvider = ({ children }: UserInfoContextProviderPro
     const [userAddress, setUserAddress] = useState<UserAddress>({} as UserAddress);
     const [userPaymentMethod, setUserPaymentMethod] = useState<UserPaymentMethodProps>({} as UserPaymentMethodProps);
 
+    useEffect(() => {
+        const storedPaymentMethodAsJSON = localStorage.getItem('@coffee-delivery:user-info');
+
+        if(storedPaymentMethodAsJSON) {
+            const storedPaymentMethodAsObject: UserInfoStored = JSON.parse(storedPaymentMethodAsJSON);
+            setUserPaymentMethod(storedPaymentMethodAsObject.paymentMethod);
+            setUserAddress(storedPaymentMethodAsObject.userAddress);
+        }
+    }, [])
+
+
     const saveUserAddress = (data: UserAddress) => {
         setUserAddress(data)
+        localStorage.setItem('@coffee-delivery:user-info', JSON.stringify({ userAddress: data, paymentMethod: userPaymentMethod }));
     }
 
     const saveUserPaymentMethod = (method: UserPaymentMethodProps) => {
-        console.log(method);
         setUserPaymentMethod(method);
     }
 

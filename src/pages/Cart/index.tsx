@@ -23,7 +23,6 @@ import {
 } from "./styles"
 import { UserAddressForm } from "./UserAddressForm";
 import { UserInfoContext } from "../../contexts/UserInfoContext";
-import { NavLink } from "react-router-dom";
 
 export const Cart = () => {
     const { coffeesInCart } = useContext(ItemsContext);
@@ -35,7 +34,6 @@ export const Cart = () => {
     
     const total = shipping + totalItems;
 
-    const userSelectedPaymentMethod = userPaymentMethod && coffeesInCart && userAddress ? "/success" : "/cart"
 
     const checkPaymentMethod = () => {
         if(!userPaymentMethod.length) {
@@ -118,13 +116,10 @@ export const Cart = () => {
                                 <p>R$ {total}</p>
                             </Total>
                         </TotalBill>
-                        
-                        
-                            <ConfirmButton type="submit" form="UserAddressForm" onClick={checkPaymentMethod}>
-                                <NavLink to={userSelectedPaymentMethod} title="success">
-                                    Confirmar pedido
-                                </NavLink>
-                            </ConfirmButton>
+                       
+                        <ConfirmButton type="submit" form="UserAddressForm" onClick={checkPaymentMethod}>   
+                                Confirmar pedido
+                        </ConfirmButton>
                 </TotalCoffees>
             </SelectedCoffees>
         </CartContainer>

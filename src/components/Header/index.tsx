@@ -5,9 +5,11 @@ import { MapPin, ShoppingCart } from 'phosphor-react'
 import { NavLink } from "react-router-dom"
 import { useContext } from "react"
 import { ItemsContext } from "../../contexts/ItemsContext"
+import { UserInfoContext } from "../../contexts/UserInfoContext"
 
 export const Header = () => {
     const { coffeesInCart } = useContext(ItemsContext);
+    const { userAddress } = useContext(UserInfoContext);
 
     return (
         <HeaderContainer>
@@ -18,7 +20,7 @@ export const Header = () => {
             <Actions>
                 <Location>
                     <MapPin weight="fill" size={20}/>
-                    <p>Porto Alegre, RS</p>
+                    <p>{userAddress.city}, {userAddress.state}</p>
                 </Location>
 
                 <NavLink to="/cart" title="Cart">

@@ -12,6 +12,7 @@ interface ItemsContextType {
     coffeesInCart: CoffeeBuyed[];
     addCoffeeInCart: (newCoffee: CoffeeBuyed) => void;
     removeCoffeeInCart: (coffeeId: string) => void;
+    resetCart: () => void;
 }
 
 interface ItemsContextProviderProps {
@@ -47,12 +48,17 @@ export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
         setCoffeesInCart(coffeesInCartWithoutRemovedOne)
     }
 
+    const resetCart = () => {
+        setCoffeesInCart([]);
+    }
+
     return (
         <ItemsContext.Provider 
             value={{ 
-                addCoffeeInCart, 
-                removeCoffeeInCart, 
                 coffeesInCart,
+                addCoffeeInCart, 
+                removeCoffeeInCart,
+                resetCart,
             }}>
             {children}
         </ItemsContext.Provider>

@@ -4,6 +4,8 @@ import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useContext } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfoContext";
+import { useNavigate } from "react-router-dom";
+import { ItemsContext } from "../../../contexts/ItemsContext";
 
 const newAddressFormValidationSchema = zod.object({
     cep: zod.string(),
@@ -20,6 +22,8 @@ type newAddressFormData = zod.infer<typeof newAddressFormValidationSchema>
 
 export const UserAddressForm = () => {
     const { saveUserAddress, userPaymentMethod } = useContext(UserInfoContext);
+    const { resetCart } = useContext(ItemsContext);
+    const navigate = useNavigate();
 
     const { register, handleSubmit } = useForm<newAddressFormData>({
         resolver: zodResolver(newAddressFormValidationSchema),
@@ -28,6 +32,8 @@ export const UserAddressForm = () => {
     const sendUserAddressData = (data: newAddressFormData) => {
         if(userPaymentMethod) {
             saveUserAddress(data);
+            navigate('/success');
+            resetCart();
         }
     }
 
