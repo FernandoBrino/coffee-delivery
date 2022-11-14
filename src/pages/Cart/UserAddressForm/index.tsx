@@ -2,10 +2,11 @@ import { BaseInput, Cep, CityState, Complement, ComplementInput, Street, UserAdd
 import { useForm } from 'react-hook-form';
 import * as zod from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "../../../contexts/UserInfoContext";
 import { useNavigate } from "react-router-dom";
 import { ItemsContext } from "../../../contexts/ItemsContext";
+import axios from "axios";
 
 const newAddressFormValidationSchema = zod.object({
     cep: zod.string(),
@@ -19,15 +20,34 @@ const newAddressFormValidationSchema = zod.object({
 
 type newAddressFormData = zod.infer<typeof newAddressFormValidationSchema>
 
+interface  AddressByCep {
+    logradouro: string;
+    bairro: string;
+    localidade: string;
+    uf: string;
+}
+
 
 export const UserAddressForm = () => {
     const { saveUserAddress, userPaymentMethod } = useContext(UserInfoContext);
     const { resetCart } = useContext(ItemsContext);
     const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm<newAddressFormData>({
+    const [addressByCep, setAddressByCep ]  = useState<AddressByCep>({} as AddressByCep);
+
+    const { register, handleSubmit, getValues, watch } = useForm<newAddressFormData>({
         resolver: zodResolver(newAddressFormValidationSchema),
     });
+
+
+    const cep = getValues("cep");
+    const watchCep = watch("cep");
+
+    useEffect(() => {
+        axios.get<AddressByCep>(`https://viacep.com.br/ws/${cep}/json/`).then(response => {
+            setAddressByCep(response.data)
+        })
+    }, [watchCep]);
 
     const sendUserAddressData = (data: newAddressFormData) => {
         if(userPaymentMethod) {
@@ -44,7 +64,13 @@ export const UserAddressForm = () => {
             </Cep>
 
             <Street>
-                <BaseInput type="text" placeholder="Rua" {...register('street')} required/>
+                <BaseInput 
+                    type="text" 
+                    placeholder="Rua" 
+                    {...register('street')} 
+                    required
+                    value={addressByCep.logradouro}
+                />
             </Street>
 
             <Complement>
@@ -56,9 +82,27 @@ export const UserAddressForm = () => {
             </Complement>
 
             <CityState>
-                <BaseInput type="text" placeholder="Bairro" {...register('district')} required/>
-                <BaseInput type="text" placeholder="Cidade" {...register('city')} required/>
-                <BaseInput type="text" placeholder="UF" {...register('state')} required/>
+                <BaseInput 
+                    type="text" 
+                    placeholder="Bairro" 
+                    {...register('district')} 
+                    required
+                    value={addressByCep.bairro}
+                />
+                <BaseInput 
+                    type="text" 
+                    placeholder="Cidade" 
+                    {...register('city')} 
+                    required
+                    value={addressByCep.localidade}
+                />
+                <BaseInput 
+                    type="text" 
+                    placeholder="UF" 
+                    {...register('state')} 
+                    required
+                    value={addressByCep.uf}
+                />
             </CityState>
         </UserAddressFormContainer>
     );
