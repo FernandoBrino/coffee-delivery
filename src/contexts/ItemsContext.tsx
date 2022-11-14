@@ -1,6 +1,7 @@
-import { createContext, ReactNode, useState, useCallback } from "react";
-
-interface CoffeeBuyed {
+import { createContext, ReactNode, useReducer } from "react";
+import { addNewCoffeeIntoCart, removeCoffeeIntoCart, resetCoffeesIntoCart } from "../reducers/cartItems/actions";
+import { cartItemsReducer } from "../reducers/cartItems/reducer";
+export interface CoffeeBuyed {
     id: string;
     title: string;
     price: number;
@@ -22,34 +23,22 @@ interface ItemsContextProviderProps {
 export const ItemsContext = createContext({} as ItemsContextType)
 
 export const ItemsContextProvider = ({children}: ItemsContextProviderProps) => {
-    const [coffeesInCart, setCoffeesInCart] = useState<CoffeeBuyed[]>([]);
+    const [coffeeState, dispatch] = useReducer(cartItemsReducer, {
+        coffeesInCart: [],
+    });
 
-    const addCoffeeInCart = useCallback((newCoffee: CoffeeBuyed) => {
-        const coffeeAlreadyOnCart = coffeesInCart.find(coffee => coffee.id === newCoffee.id);
-
-        if(coffeeAlreadyOnCart) {
-            const updateCoffeeQuantity = coffeesInCart.map(coffee => {
-                if(coffee.id === newCoffee.id) {
-                    return { ...coffee, quantity: newCoffee.quantity };
-                }
-                
-                return coffee
-            })
-            
-            setCoffeesInCart(updateCoffeeQuantity);
-        } else {
-            setCoffeesInCart(state => [...state, newCoffee]);
-        }
-    }, [coffeesInCart]);
+    const { coffeesInCart } = coffeeState;
+    
+    const addCoffeeInCart = (newCoffee: CoffeeBuyed) => {
+        dispatch(addNewCoffeeIntoCart(newCoffee));
+    }
 
     const removeCoffeeInCart = (coffeeId: string) => {
-        const coffeesInCartWithoutRemovedOne = coffeesInCart.filter(coffee => coffee.id !== coffeeId)
-
-        setCoffeesInCart(coffeesInCartWithoutRemovedOne)
+        dispatch(removeCoffeeIntoCart(coffeeId));
     }
 
     const resetCart = () => {
-        setCoffeesInCart([]);
+        dispatch(resetCoffeesIntoCart());
     }
 
     return (

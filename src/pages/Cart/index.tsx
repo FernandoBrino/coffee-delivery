@@ -26,7 +26,7 @@ import { UserInfoContext } from "../../contexts/UserInfoContext";
 
 export const Cart = () => {
     const { coffeesInCart } = useContext(ItemsContext);
-    const { saveUserPaymentMethod, userPaymentMethod, userAddress } = useContext(UserInfoContext);
+    const { saveUserPaymentMethod, userPaymentMethod } = useContext(UserInfoContext);
 
     const totalItems = coffeesInCart.reduce((acc, current) => acc += (current.price * current.quantity), 0)
 
