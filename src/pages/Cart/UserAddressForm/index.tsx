@@ -35,10 +35,15 @@ export const UserAddressForm = () => {
 
     const [addressByCep, setAddressByCep ]  = useState<AddressByCep>({} as AddressByCep);
 
-    const { register, handleSubmit, getValues, watch } = useForm<newAddressFormData>({
+    const { register, handleSubmit, getValues, setValue, watch } = useForm<newAddressFormData>({
         resolver: zodResolver(newAddressFormValidationSchema),
+        defaultValues: {
+            street: addressByCep.logradouro,
+            district: addressByCep.bairro,
+            city: addressByCep.localidade,
+            state: addressByCep.uf,
+        }
     });
-
 
     const cep = getValues("cep");
     const watchCep = watch("cep");
@@ -46,6 +51,10 @@ export const UserAddressForm = () => {
     useEffect(() => {
         axios.get<AddressByCep>(`https://viacep.com.br/ws/${cep}/json/`).then(response => {
             setAddressByCep(response.data)
+            setValue("street", addressByCep.logradouro);
+            setValue("district", addressByCep.bairro);
+            setValue("city", addressByCep.localidade);
+            setValue("state", addressByCep.uf);
         })
     }, [watchCep]);
 
@@ -69,8 +78,7 @@ export const UserAddressForm = () => {
                     placeholder="Rua" 
                     {...register('street')} 
                     required
-                    value={addressByCep.logradouro}
-                />
+                />  
             </Street>
 
             <Complement>
@@ -87,21 +95,18 @@ export const UserAddressForm = () => {
                     placeholder="Bairro" 
                     {...register('district')} 
                     required
-                    value={addressByCep.bairro}
                 />
                 <BaseInput 
                     type="text" 
                     placeholder="Cidade" 
                     {...register('city')} 
                     required
-                    value={addressByCep.localidade}
                 />
                 <BaseInput 
                     type="text" 
                     placeholder="UF" 
                     {...register('state')} 
                     required
-                    value={addressByCep.uf}
                 />
             </CityState>
         </UserAddressFormContainer>

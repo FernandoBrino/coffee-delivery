@@ -4,6 +4,9 @@ import { Actions, Cart, CoffeeContainer, CoffeeContent, CoffeeType, Description,
 import { ShoppingCartSimple, Minus, Plus } from 'phosphor-react'
 import { ItemsContext } from "../../../contexts/ItemsContext";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface CoffeeProps {
     id: string,
     title: string,
@@ -20,6 +23,12 @@ interface IProps {
 export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
     const { addCoffeeInCart } = useContext(ItemsContext);
     const [coffeeQuantity, setCoffeeQuantity] = useState<number>(1);
+
+    const showToastMessage = () => {
+        toast.success(`${coffee.title} adicionado ao carrinho !`, {
+            position: toast.POSITION.TOP_RIGHT,
+        });
+    };
 
     const handleAddCoffee = () => {
         setCoffeeQuantity(state => state + 1);
@@ -42,6 +51,7 @@ export const CoffeeComponent: FC<IProps> = ({ coffee }) => {
 
         addCoffeeInCart(coffeeToBeAdded)
         setCoffeeQuantity(1);
+        showToastMessage();
     }
 
     return (

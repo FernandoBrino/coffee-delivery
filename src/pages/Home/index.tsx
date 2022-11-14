@@ -16,9 +16,11 @@ import { ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
 import { coffeeList } from "../../utils/coffeeList";
 
 import { CoffeeComponent } from "./CoffeeComponent";
+import { ToastContainer } from "react-toastify";
 
 export const Home = () => {
     return ( 
+        <>
         <HomeContainer>
             <CoffeeIntroduction>
                 <IntroductionText>
@@ -68,5 +70,7 @@ export const Home = () => {
                 </List>
             </CoffeeList>
         </HomeContainer>
+        <ToastContainer />
+    </>
     )
 }
